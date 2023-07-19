@@ -32,12 +32,13 @@ main {
     height: 5rem;
     border: 1px solid red;
 }
-.screen input {
+.screen input, .screen textarea {
     font-size: inherit;
     flex: 1;
     border: none;
     pointer-events: none;
     padding: 0 0.5rem;
+    resize: none;
 }
 .screen .result {
     text-align: end;
@@ -60,4 +61,16 @@ main {
     border-bottom-right-radius: 40%;
     border: 1px solid rgba(0, 0, 0, 0.5);
     border-bottom: 50% solid green;
+}
+.key.ans {
+    grid-column: span 2;
+}
+.pow {
+    position: relative;
+}
+.pow > span {
+    font-size: 16px;
+    position: absolute;
+    top: 0.5rem;
+    right: 0.8rem;
 }

@@ -26,6 +26,9 @@ const operations = {
     },
     divide(num1, num2) {
         return num1 / num2;
+    },
+    pow(num1, exp) {
+        return Math.pow(num1, exp);
     }
 }
 
@@ -109,8 +112,7 @@ keys.forEach(key => {
         }
 
 
-        const isOperator = key.dataset.key == 'add' || key.dataset.key == 'subtract'
-         || key.dataset.key == 'multiply' || key.dataset.key == 'divide';
+        const isOperator = stringOperators[key.dataset.key] !== undefined;
         if (isOperator) {
             addOperatorToOperation(key.dataset.key);
         }
@@ -125,17 +127,18 @@ keys.forEach(key => {
     })
 })
 
-const stringOperatos = {
+const stringOperators = {
     add: '+',
     subtract: '-',
     multiply: 'x',
     divide: '÷',
+    pow: '^',
 }
 
 const screenInput = document.getElementById('input');
 const screenResult = document.getElementById('result');
 function updateInputAndResult() {
-    screenInput.value = `${stringToNumber(operation.num1String)} ${operation.operator === null ? '' : stringOperatos[operation.operator]} ${operation.num2String}`;
+    screenInput.value = `${stringToNumber(operation.num1String)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${operation.num2String}`;
     screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
     console.log(operation);
 }
