@@ -36,7 +36,8 @@ main {
     font-size: inherit;
     flex: 1;
     border: none;
-
+    pointer-events: none;
+    padding: 0 0.5rem;
 }
 .screen .result {
     text-align: end;
@@ -52,6 +53,7 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-size: inherit;
     border-top-left-radius: 20%;
     border-top-right-radius: 20%;
     border-bottom-left-radius: 40%;
