@@ -25,7 +25,7 @@ const operations = {
         return num1 * num2;
     },
     divide(num1, num2) {
-        return num1 / num2;
+        return num2 === 0 ? 'Math ERROR' : (num1 / num2);
     },
     pow(num1, exp) {
         return Math.pow(num1, exp);
@@ -49,12 +49,8 @@ function addNumberToOperation(number) {
     } else if(operation.num2 === null) {
         operation.num2String += number;
     } else if (operation.res !== null) {
-        resetNumber('num1');
-        resetNumber('num2');
-        operation.operator = null;
-        operation.res = null;
+        resetCalculator();
         operation.num1String += number;
-
     }
 }
 
@@ -74,7 +70,7 @@ function addOperatorToOperation(operator) {
         } else {
             operation.num2 = Number(operation.num2String);
             operation.res = operate(operation.num1, operation.num2, operation.operator);
-            operation.num1 = operation.res;
+            operation.num1 = typeof operation.res === 'number' ? operation.res : 0;
             operation.num1String = '' + operation.num1;
             operation.operator = operator;
             resetNumber('num2');
@@ -118,10 +114,9 @@ keys.forEach(key => {
         }
         
 
-        const isOperate = key.dataset.key == 'operate';
-        if (isOperate) calcResult();
+        if (key.dataset.key == 'operate') calcResult();
 
-        if(key.dataset.key == 'ac') resetCalculator();
+        if (key.dataset.key == 'ac') resetCalculator();
 
         updateInputAndResult();
     })
