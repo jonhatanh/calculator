@@ -73,4 +73,5 @@ main {
     position: absolute;
     top: 0.5rem;
     right: 0.8rem;
+    pointer-events: none;
 }

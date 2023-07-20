@@ -70,11 +70,27 @@ function addOperatorToOperation(operator) {
         } else {
             operation.num2 = Number(operation.num2String);
             operation.res = operate(operation.num1, operation.num2, operation.operator);
-            operation.num1 = typeof operation.res === 'number' ? operation.res : 0;
+            operation.num1 = typeof operation.res === 'number' ? Number(Number(operation.res).toFixed(2)) : 0;
             operation.num1String = '' + operation.num1;
             operation.operator = operator;
             resetNumber('num2');
         }
+    }
+}
+
+function addPoint() {
+    console.log(operation.num1String);
+    if(operation.num1String === '') {
+        operation.num1String = '0.';
+    } else if (!operation.num1String.includes('.') && operation.num2String === '' && operation.operator === null) {
+        operation.num1String += '.';
+    }
+    if(operation.operator === null) return;
+    
+    if (operation.num2String === '') {
+        operation.num2String = '0.';
+    } else if (!operation.num2String.includes('.')) {
+        operation.num2String += '.';
     }
 }
 
@@ -103,14 +119,17 @@ keys.forEach(key => {
         const number = Number(key.dataset.key);
         if(number || number === 0) {
             addNumberToOperation(number);
-            updateInputAndResult();
+            updateInputAndResult(false);
             return;
         }
+        if (key.dataset.key == '.') addPoint();
 
 
         const isOperator = stringOperators[key.dataset.key] !== undefined;
         if (isOperator) {
             addOperatorToOperation(key.dataset.key);
+            updateInputAndResult(false);
+            return;
         }
         
 
@@ -132,16 +151,25 @@ const stringOperators = {
 
 const screenInput = document.getElementById('input');
 const screenResult = document.getElementById('result');
-function updateInputAndResult() {
-    screenInput.value = `${stringToNumber(operation.num1String)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${operation.num2String}`;
-    screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
-    console.log(operation);
+function updateInputAndResult(withDecimalsRounded = true) {
+    if (withDecimalsRounded) {
+        screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
+        screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
+        console.log(operation);
+    } else {
+        screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
+        screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
+        console.log(operation);
+    }
 }
 updateInputAndResult();
 
-function stringToNumber(string) {
+function stringToNumber(string, withDecimalsRounded = true) {
     if(string === null || string === '') return '';
-    return typeof string === 'number' || string.includes('.') ? Number(string).toFixed(2) : string;
+    if (withDecimalsRounded)
+        return typeof string === 'number' || string.includes('.') ? Number(string).toFixed(2) : string;
+    else
+        return typeof string === 'number' || string.includes('.') ? string : string;
 }
 
 
