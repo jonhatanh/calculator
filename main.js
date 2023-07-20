@@ -94,6 +94,21 @@ function addPoint() {
     }
 }
 
+function deleteInput() {
+    if(operation.num2String !== '') {
+        operation.res = null;
+        operation.num2String = operation.num2String.slice(0, operation.num2String.length - 1);
+        if(operation.num2String === '') operation.num2 = null;
+    } else if(operation.operator !== null) {
+        operation.res = null;
+        operation.operator = null;
+        operation.num1 = null;
+    } else {
+        operation.num1String = operation.num1String.slice(0, operation.num1String.length - 1);
+    }
+    // } else if (operation.)
+}
+
 function calcResult() {
     const invalidOperation = operation.num1String === '' || operation.operator === null || operation.num2String === '';
     if(invalidOperation) return;
@@ -119,7 +134,7 @@ keys.forEach(key => {
         const number = Number(key.dataset.key);
         if(number || number === 0) {
             addNumberToOperation(number);
-            updateInputAndResult(false);
+            updateInputAndResult();
             return;
         }
         if (key.dataset.key == '.') addPoint();
@@ -128,12 +143,14 @@ keys.forEach(key => {
         const isOperator = stringOperators[key.dataset.key] !== undefined;
         if (isOperator) {
             addOperatorToOperation(key.dataset.key);
-            updateInputAndResult(false);
-            return;
+            // updateInputAndResult(false);
+            // return;
         }
         
 
         if (key.dataset.key == 'operate') calcResult();
+
+        if (key.dataset.key == 'del') deleteInput();
 
         if (key.dataset.key == 'ac') resetCalculator();
 
@@ -151,16 +168,16 @@ const stringOperators = {
 
 const screenInput = document.getElementById('input');
 const screenResult = document.getElementById('result');
-function updateInputAndResult(withDecimalsRounded = true) {
-    if (withDecimalsRounded) {
-        screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
-        screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
-        console.log(operation);
-    } else {
-        screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
-        screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
-        console.log(operation);
-    }
+function updateInputAndResult() {
+    screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
+    screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
+    console.log(operation);
+    // if (withDecimalsRounded) {
+    // } else {
+    //     screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
+    //     screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
+    //     console.log(operation);
+    // }
 }
 updateInputAndResult();
 
