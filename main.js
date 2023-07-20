@@ -122,39 +122,36 @@ function calcResult() {
     //resetNumber('num2');
 }
 
+function addKeyPressedToOperation(key) {
+    console.log(key);
+    const number = Number(key);
+    if((number || number === 0) && key !== ' ') {
+        addNumberToOperation(number);
+        updateInputAndResult();
+        return;
+    }
+    if (key == '.') addPoint();
+
+    const isOperator = stringOperators[key] !== undefined;
+    if (isOperator) {
+        addOperatorToOperation(key);
+        // updateInputAndResult(false);
+        // return;
+    }
+    
+    if (key == 'operate') calcResult();
+
+    if (key == 'del') deleteInput();
+
+    if (key == 'ac') resetCalculator();
+
+    updateInputAndResult();
+}
 const keys = document.querySelectorAll('.key');
 keys.forEach(key => {
     key.addEventListener('click', (e) => {
-        const key = e.target;
-        if(key.dataset.key === undefined) return;
-        
-        console.log(key);
-
-        // const isNumber = Number(key.dataset.key) !== NaN;
-        const number = Number(key.dataset.key);
-        if(number || number === 0) {
-            addNumberToOperation(number);
-            updateInputAndResult();
-            return;
-        }
-        if (key.dataset.key == '.') addPoint();
-
-
-        const isOperator = stringOperators[key.dataset.key] !== undefined;
-        if (isOperator) {
-            addOperatorToOperation(key.dataset.key);
-            // updateInputAndResult(false);
-            // return;
-        }
-        
-
-        if (key.dataset.key == 'operate') calcResult();
-
-        if (key.dataset.key == 'del') deleteInput();
-
-        if (key.dataset.key == 'ac') resetCalculator();
-
-        updateInputAndResult();
+        if(e.target.dataset.key === undefined) return;
+        addKeyPressedToOperation(e.target.dataset.key);
     })
 })
 
@@ -189,20 +186,23 @@ function stringToNumber(string, withDecimalsRounded = true) {
         return typeof string === 'number' || string.includes('.') ? string : string;
 }
 
-
-// function add(num1, num2) {
-//     return num1 + num2;
-// }
-// function subtract(num1, num2) {
-//     return num1 - num2;
-// }
-// function multiply(num1, num2) {
-//     return num1 * num2;
-// }
-// function divide(num1, num2) {
-//     return num1 / num2;
-// }
-
+const keyToWord = {
+    '+': 'add',
+    '-': 'subtract',
+    '*': 'multiply',
+    'x': 'multiply',
+    'X': 'multiply',
+    '/': 'divide',
+    '^': 'pow',
+    'Enter': 'operate',
+    '=': 'operate',
+    'Escape': 'ac',
+    'Backspace': 'del',
+    'Delete': 'del',
+};
+window.addEventListener('keydown', e => {
+    addKeyPressedToOperation(keyToWord[e.key] === undefined ? e.key : keyToWord[e.key])    
+})
 
 
 
