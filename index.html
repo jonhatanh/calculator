@@ -4,46 +4,65 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Calculator</title>
-
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Martian+Mono&family=Noto+Sans+Sundanese:wght@700&family=Press+Start+2P&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="./main.js" defer></script>
 </head>
 <body>
-    <h1>Calculator</h1>
     <main>
-        <div class="calculator">
-            <div class="screen">
-                <textarea type="text" name="input" id="input" class="input" readonly></textarea>
-                <input type="text" name="result" id="result" class="result"  readonly>
+        <div class="case">
+            <div class="calculator">
+                <div class="info">
+                    <div>
+                        <h3>CASIO</h3>
+                        <span>fx-991ES PLUS</span>
+                    </div>
+                    <div class="panel">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="screen">
+                    <textarea type="text" name="input" id="input" class="input" readonly></textarea>
+                    <input type="text" name="result" id="result" class="result"  readonly>
+                </div>
+                
             </div>
-            <div class="body">
-                <button data-key="7" class="key ">7</button>
-                <button data-key="8" class="key ">8</button>
-                <button data-key="9" class="key ">9</button>
-                <button data-key="del" class="key ">DEL</button>
-                <button data-key="ac" class="key ">AC</button>
-                
-                <button data-key="4" class="key ">4</button>
-                <button data-key="5" class="key ">5</button>
-                <button data-key="6" class="key ">6</button>
-                <button data-key="multiply" class="key ">x</button>
-                <button data-key="divide" class="key ">&#247</button>
-
-                <button data-key="1" class="key ">1</button>
-                <button data-key="2" class="key ">2</button>
-                <button data-key="3" class="key ">3</button>
-                <button data-key="add" class="key ">+</button>
-                <button data-key="subtract" class="key ">-</button>
-
-                <button data-key="0" class="key ">0</button>
-                <button data-key="." class="key ">.</button>
-                <button data-key="pow" class="key pow">x<span>y</span></button>
-                <!-- <button data-key="" class="key">Ans</button> -->
-                <button data-key="operate" class="key ans">=</button>
-
-                
+            <div class="calculator-lower">
+                <div class="body">
+                    <button data-key="7" class="key ">7</button>
+                    <button data-key="8" class="key ">8</button>
+                    <button data-key="9" class="key ">9</button>
+                    <button data-key="del" class="key special">DEL</button>
+                    <button data-key="ac" class="key special">AC</button>
+                    
+                    <button data-key="4" class="key ">4</button>
+                    <button data-key="5" class="key ">5</button>
+                    <button data-key="6" class="key ">6</button>
+                    <button data-key="multiply" class="key ">x</button>
+                    <button data-key="divide" class="key ">&#247</button>
+    
+                    <button data-key="1" class="key ">1</button>
+                    <button data-key="2" class="key ">2</button>
+                    <button data-key="3" class="key ">3</button>
+                    <button data-key="add" class="key ">+</button>
+                    <button data-key="subtract" class="key ">-</button>
+    
+                    <button data-key="0" class="key ">0</button>
+                    <button data-key="." class="key ">.</button>
+                    <button data-key="pow" class="key pow">x<span>y</span></button>
+                    <!-- <button data-key="" class="key">Ans</button> -->
+                    <button data-key="operate" class="key ans">=</button>
+    
+                    
+                </div>
             </div>
         </div>
+        
     </main>
     
 </body>
