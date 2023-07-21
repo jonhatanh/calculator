@@ -141,6 +141,8 @@ background: linear-gradient(180deg, rgba(var(--calculator-color),1) 0%, rgba(215
 }
 
 .body {
+    position: relative;
+    z-index: 20;
     flex: 1;
     display: grid;
     grid-template-columns: repeat(5, minmax(0px, 1fr));
@@ -160,20 +162,29 @@ background: linear-gradient(180deg, rgba(var(--calculator-color),1) 0%, rgba(215
     border-bottom-right-radius: 40%;
     border: 2px solid rgba(0, 0, 0, 0.7);
     background-color: rgb(var(--normal-key));
-}
-.key.normal {
-    background-color: rgb(var(--normal-key));
+    transition: all 0.3s;
 }
 .key.special {
     font-size: 20px;
-    background-color: rgba(var(--special-key),0.9);
+    background-color: rgba(var(--special-key),0.7);
+}
+.key:hover {
+    background-color: rgba(var(--normal-key),0.4);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+}
+.key.special:hover {
+    background-color: rgba(var(--special-key),1);
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
 }
 .key.pressed {
-
+    transition-duration: 0.07s;
+    background-color: rgba(var(--calculator-background), 0.3);
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.4);
+    transform: scale(1.1);
 }
-.key:active {
+/* .key:active {
     background-color: yellow;
-}
+} */
 .key.ans {
     grid-column: span 2;
 }

@@ -1,9 +1,5 @@
 
-
 (function() {
-
-
-
 
 const operation = {
     num1: null,
@@ -79,7 +75,6 @@ function addOperatorToOperation(operator) {
 }
 
 function addPoint() {
-    console.log(operation.num1String);
     if(operation.num1String === '') {
         operation.num1String = '0.';
     } else if (!operation.num1String.includes('.') && operation.num2String === '' && operation.operator === null) {
@@ -115,15 +110,9 @@ function calcResult() {
 
     operation.num2 = Number(operation.num2String);
     operation.res = operate(operation.num1, operation.num2, operation.operator);
-    // operation.num1 = operation.res;
-    // operation.num1String = '' + operation.num1;
-    //operation.operator = null;
-    //resetNumber('num1');
-    //resetNumber('num2');
 }
 
 function addKeyPressedToOperation(key) {
-    console.log(key);
     const number = Number(key);
     if((number || number === 0) && key !== ' ') {
         addNumberToOperation(number);
@@ -148,12 +137,21 @@ function addKeyPressedToOperation(key) {
     updateInputAndResult();
 }
 const keys = document.querySelectorAll('.key');
+const buttonsCollection = []
 keys.forEach(key => {
     key.addEventListener('click', (e) => {
         if(e.target.dataset.key === undefined) return;
+        buttonsCollection.push(e.target);
+        e.target.classList.add('pressed');
+
         addKeyPressedToOperation(e.target.dataset.key);
-    })
+    });
+    key.addEventListener('transitionend', removeTransition);
 })
+function removeTransition(e) {
+    if(e.propertyName !== 'transform') return;
+    this.classList.remove('pressed');
+}
 
 const stringOperators = {
     add: '+',
@@ -167,14 +165,7 @@ const screenInput = document.getElementById('input');
 const screenResult = document.getElementById('result');
 function updateInputAndResult() {
     screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
-    screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
-    console.log(operation);
-    // if (withDecimalsRounded) {
-    // } else {
-    //     screenInput.value = `${stringToNumber(operation.num1String, false)} ${operation.operator === null ? '' : stringOperators[operation.operator]} ${stringToNumber(operation.num2String, false)}`;
-    //     screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`;
-    //     console.log(operation);
-    // }
+    screenResult.value = operation.res === null ? '0' : `${stringToNumber(operation.res)}`; 
 }
 updateInputAndResult();
 
@@ -201,10 +192,14 @@ const keyToWord = {
     'Delete': 'del',
 };
 window.addEventListener('keydown', e => {
+    pressAnimation(e);
     addKeyPressedToOperation(keyToWord[e.key] === undefined ? e.key : keyToWord[e.key])    
 })
-
-
+function pressAnimation(e) {
+    const button = document.querySelector(`[data-key="${keyToWord[e.key] === undefined ? e.key : keyToWord[e.key]}"]`)
+    if(button === null) return;
+    button.classList.add('pressed')
+}
 
 
 })()
